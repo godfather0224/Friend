@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lucky to Have a Friend Like You</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Plus Jakarta Sans & Caveat for handwritten notes -->
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        handwriting: ['"Caveat"', 'cursive'],
+                    },
+                    colors: {
+                        roseBlush: '#fff1f2',
+                        lavenderMist: '#f3e8ff',
+                        peachGlow: '#fff7ed',
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'spin-slow': 'spin 20s linear infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+                            '50%': { transform: 'translateY(-15px) rotate(3deg)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbar & glassmorphism effects */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #fff1f2;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #f43f5e;
+            border-radius: 4px;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+        }
+        .polaroid {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .polaroid:hover {
+            transform: translateY(-8px) rotate(0deg) scale(1.02);
+            z-index: 10;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-rose-50 via-purple-50 to-pink-100 text-slate-700 font-sans min-h-screen relative overflow-x-hidden">
+
+    <!-- Floating Background Particles / Hearts -->
+    <div class="absolute inset-0 pointer-events-none overflow-hidden z-0" id="particles-container">
+        <div class="absolute top-10 left-[10%] text-rose-300/40 text-4xl animate-float" style="animation-delay: 0s;"><i class="fa-solid fa-heart"></i></div>
+        <div class="absolute top-1/3 left-[85%] text-purple-300/40 text-3xl animate-float" style="animation-delay: 1.5s;"><i class="fa-solid fa-sparkles"></i></div>
+        <div class="absolute top-2/3 left-[15%] text-pink-300/40 text-5xl animate-float" style="animation-delay: 3s;"><i class="fa-solid fa-face-smile-beam"></i></div>
+        <div class="absolute top-[80%] left-[75%] text-rose-300/40 text-4xl animate-float" style="animation-delay: 2.5s;"><i class="fa-solid fa-heart"></i></div>
+        <div class="absolute top-[15%] left-[50%] text-amber-300/30 text-3xl animate-float" style="animation-delay: 4s;"><i class="fa-solid fa-star"></i></div>
+    </div>
+
+    <!-- Ambient Music / Vibe Toggle -->
+    <div class="fixed top-4 right-4 z-50 flex items-center gap-2 glass-card px-4 py-2 rounded-full shadow-lg">
+        <button id="music-toggle" onclick="toggleAmbiance()" class="w-9 h-9 rounded-full bg-rose-500 text-white flex items-center justify-center hover:bg-rose-600 transition shadow-md focus:outline-none">
+            <i id="music-icon" class="fa-solid fa-music"></i>
+        </button>
+        <span class="text-xs font-semibold text-rose-700 tracking-wider uppercase pr-1 hidden sm:inline" id="music-text">Cozy Vibe</span>
+    </div>
+
+    <!-- Hero Section -->
+    <header class="relative z-10 min-h-screen flex flex-col items-center justify-center text-center px-4 py-16">
+        <div class="glass-card max-w-3xl mx-auto p-8 sm:p-12 rounded-3xl shadow-2xl relative overflow-hidden group">
+            <!-- Decorative badge -->
+            <div class="inline-flex items-center gap-2 bg-rose-100 text-rose-700 px-4 py-1.5 rounded-full text-sm font-semibold mb-6 shadow-sm">
+                <i class="fa-solid fa-clover text-rose-500"></i> Dedicated to My Favorite Person
+            </div>
+            
+            <h1 class="text-4xl sm:text-6xl font-extrabold text-slate-800 tracking-tight mb-6 leading-tight">
+                Lucky to Have a <span class="bg-gradient-to-r from-rose-500 via-pink-500 to-purple-600 bg-clip-text text-transparent">Friend Like You</span> ✨
+            </h1>
+            
+            <p class="text-lg sm:text-xl text-slate-600 mb-8 max-w-xl mx-auto font-light leading-relaxed">
+                Some people make your laugh a little louder, your smile a little brighter, and your life infinitely better. Thank you for being my anchor and my sunshine.
+            </p>
+
+            <div class="flex flex-wrap items-center justify-center gap-4">
+                <a href="#reasons" class="bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white font-semibold px-8 py-3.5 rounded-full shadow-lg shadow-rose-500/25 transition transform hover:-translate-y-0.5 active:translate-y-0 flex items-center gap-2">
+                    <i class="fa-solid fa-gift"></i> Explore Why You're Amazing
+                </a>
+                <button onclick="openSecretModal()" class="bg-white hover:bg-rose-50 text-rose-600 border border-rose-200 font-semibold px-7 py-3.5 rounded-full shadow-sm transition flex items-center gap-2">
+                    <i class="fa-solid fa-envelope-open-text"></i> Open Secret Note
+                </button>
+            </div>
+
+            <!-- Scroll indicator -->
+            <div class="absolute bottom-3 left-1/2 transform -translate-x-1/2 text-rose-400 animate-bounce hidden sm:block">
+                <i class="fa-solid fa-chevron-down"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- "Why You're Awesome" Interactive Reason Cards -->
+    <section id="reasons" class="relative z-10 max-w-5xl mx-auto px-4 py-20">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-800 mb-3">Why You're One of a Kind</h2>
+            <p class="text-slate-600 max-w-lg mx-auto">Click each card to uncover little reminders of why having you around is the absolute best.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Card 1 -->
+            <div onclick="flipCard(this)" class="glass-card p-6 rounded-2xl shadow-lg cursor-pointer transition transform hover:-translate-y-2 relative group min-h-[220px] flex flex-col justify-between border-t-4 border-rose-400">
+                <div>
+                    <div class="w-12 h-12 rounded-xl bg-rose-100 text-rose-500 flex items-center justify-center text-xl mb-4 shadow-inner">
+                        <i class="fa-solid fa-sun"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-2">You Always Know How to Brighten My Day</h3>
+                </div>
+                <div class="text-rose-600 text-sm font-semibold flex items-center gap-1 group-hover:translate-x-1 transition">
+                    <span>Click for memory</span> <i class="fa-solid fa-arrow-right"></i>
+                </div>
+                <!-- Hidden revelation note -->
+                <div class="card-back absolute inset-0 bg-rose-600 text-white p-6 rounded-2xl flex flex-col justify-center items-center text-center opacity-0 pointer-events-none transition-opacity duration-300">
+                    <i class="fa-solid fa-quote-left text-2xl text-rose-200 mb-2"></i>
+                    <p class="font-handwriting text-2xl leading-snug">"Even on the gloomiest days, your random texts or silly memes instantly turn my mood completely around."</p>
+                    <span class="text-xs mt-3 uppercase tracking-wider text-rose-200 font-bold">(Tap to flip back)</span>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div onclick="flipCard(this)" class="glass-card p-6 rounded-2xl shadow-lg cursor-pointer transition transform hover:-translate-y-2 relative group min-h-[220px] flex flex-col justify-between border-t-4 border-purple-400">
+                <div>
+                    <div class="w-12 h-12 rounded-xl bg-purple-100 text-purple-500 flex items-center justify-center text-xl mb-4 shadow-inner">
+                        <i class="fa-solid fa-shield-heart"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-2">My Safest Confidential Space</h3>
+                </div>
+                <div class="text-purple-600 text-sm font-semibold flex items-center gap-1 group-hover:translate-x-1 transition">
+                    <span>Click for memory</span> <i class="fa-solid fa-arrow-right"></i>
+                </div>
+                <div class="card-back absolute inset-0 bg-purple-600 text-white p-6 rounded-2xl flex flex-col justify-center items-center text-center opacity-0 pointer-events-none transition-opacity duration-300">
+                    <i class="fa-solid fa-quote-left text-2xl text-purple-200 mb-2"></i>
+                    <p class="font-handwriting text-2xl leading-snug">"I never have to filter myself around you. With you, I can be 100% my goofy, unfiltered self without judgment."</p>
+                    <span class="text-xs mt-3 uppercase tracking-wider text-purple-200 font-bold">(Tap to flip back)</span>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div onclick="flipCard(this)" class="glass-card p-6 rounded-2xl shadow-lg cursor-pointer transition transform hover:-translate-y-2 relative group min-h-[220px] flex flex-col justify-between border-t-4 border-amber-400">
+                <div>
+                    <div class="w-12 h-12 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center text-xl mb-4 shadow-inner">
+                        <i class="fa-solid fa-mug-hot"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-2">Partner in All Adventures & Chilling</h3>
+                </div>
+                <div class="text-amber-600 text-sm font-semibold flex items-center gap-1 group-hover:translate-x-1 transition">
+                    <span>Click for memory</span> <i class="fa-solid fa-arrow-right"></i>
+                </div>
+                <div class="card-back absolute inset-0 bg-amber-500 text-white p-6 rounded-2xl flex flex-col justify-center items-center text-center opacity-0 pointer-events-none transition-opacity duration-300">
+                    <i class="fa-solid fa-quote-left text-2xl text-amber-200 mb-2"></i>
+                    <p class="font-handwriting text-2xl leading-snug">"Whether we're going on spontaneous late-night food runs or doing absolutely nothing on the couch, every moment is fun."</p>
+                    <span class="text-xs mt-3 uppercase tracking-wider text-amber-100 font-bold">(Tap to flip back)</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive "Reasons I'm Lucky" Note Generator -->
+    <section class="relative z-10 max-w-3xl mx-auto px-4 py-12">
+        <div class="glass-card p-8 sm:p-10 rounded-3xl shadow-xl text-center bg-gradient-to-r from-rose-500/10 to-purple-500/10 border border-white">
+            <h3 class="text-2xl font-bold text-slate-800 mb-3">🎲 Lucky Friendship Note Generator</h3>
+            <p class="text-slate-600 mb-6 text-sm">Need a quick reminder of how lucky I am? Click the button below to draw a special note!</p>
+            
+            <div id="note-display" class="bg-white/80 p-6 rounded-2xl shadow-inner min-h-[100px] flex items-center justify-center mb-6 border border-rose-100">
+                <p id="lucky-note-text" class="font-handwriting text-2xl sm:text-3xl text-rose-700">"Having a friend like you is like finding a four-leaf clover in a field of ordinary grass."</p>
+            </div>
+
+            <button onclick="generateRandomNote()" class="bg-slate-800 hover:bg-slate-900 text-white font-semibold px-8 py-3 rounded-full shadow-lg transition flex items-center gap-2 mx-auto">
+                <i class="fa-solid fa-shuffle"></i> Draw Another Note
+            </button>
+        </div>
+    </section>
+
+    <!-- Photo Memory Gallery Section (Polaroid Style) -->
+    <section class="relative z-10 max-w-6xl mx-auto px-4 py-20">
+        <div class="text-center mb-16">
+            <div class="inline-flex items-center gap-2 bg-purple-100 text-purple-700 px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-3">
+                <i class="fa-solid fa-camera-retro"></i> Captured Moments
+            </div>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-800 mb-3">Our Memory Lane</h2>
+            <p class="text-slate-600 max-w-lg mx-auto">Snapshots of laughter, chaos, and unforgettable core memories.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
+            <!-- Polaroid 1 -->
+            <div class="polaroid bg-white p-4 pb-6 rounded-lg shadow-xl transform -rotate-2 hover:rotate-0">
+                <div class="aspect-[4/3] bg-rose-100 rounded overflow-hidden mb-4 relative">
+                    <img src="https://placehold.co/600x450/ffe4e6/f43f5e?text=Coffee+%26+Deep+Talks" alt="Memory 1" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/600x450/ffe4e6/f43f5e?text=Best+Memories'">
+                    <div class="absolute top-2 right-2 bg-white/90 px-2 py-0.5 rounded text-xs font-bold text-rose-600 shadow">#01</div>
+                </div>
+                <p class="font-handwriting text-2xl text-slate-800 text-center">Coffee, endless talks & zero filter.</p>
+            </div>
+
+            <!-- Polaroid 2 -->
+            <div class="polaroid bg-white p-4 pb-6 rounded-lg shadow-xl transform rotate-1 hover:rotate-0">
+                <div class="aspect-[4/3] bg-purple-100 rounded overflow-hidden mb-4 relative">
+                    <img src="https://placehold.co/600x450/f3e8ff/9333ea?text=Late+Night+Laughs" alt="Memory 2" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/600x450/f3e8ff/9333ea?text=Endless+Laughs'">
+                    <div class="absolute top-2 right-2 bg-white/90 px-2 py-0.5 rounded text-xs font-bold text-purple-600 shadow">#02</div>
+                </div>
+                <p class="font-handwriting text-2xl text-slate-800 text-center">That time we couldn't stop laughing in public.</p>
+            </div>
+
+            <!-- Polaroid 3 -->
+            <div class="polaroid bg-white p-4 pb-6 rounded-lg shadow-xl transform -rotate-1 hover:rotate-0">
+                <div class="aspect-[4/3] bg-amber-100 rounded overflow-hidden mb-4 relative">
+                    <img src="https://placehold.co/600x450/fffbeb/d97706?text=Adventures" alt="Memory 3" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/600x450/fffbeb/d97706?text=Adventures'">
+                    <div class="absolute top-2 right-2 bg-white/90 px-2 py-0.5 rounded text-xs font-bold text-amber-600 shadow">#03</div>
+                </div>
+                <p class="font-handwriting text-2xl text-slate-800 text-center">Always ready for our next spontaneous trip.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Hug / Appreciation Counter Section -->
+    <section class="relative z-10 max-w-4xl mx-auto px-4 py-12">
+        <div class="glass-card p-8 sm:p-12 rounded-3xl shadow-xl text-center bg-gradient-to-br from-pink-500/10 via-rose-500/5 to-purple-500/10 border border-white">
+            <div class="w-16 h-16 bg-rose-500 text-white rounded-full flex items-center justify-center text-3xl mx-auto mb-4 shadow-lg shadow-rose-500/30 animate-pulse-slow">
+                <i class="fa-solid fa-hands-holding-child"></i>
+            </div>
+            <h3 class="text-3xl font-extrabold text-slate-800 mb-3">Send a Virtual Hug & Thanks</h3>
+            <p class="text-slate-600 mb-8 max-w-md mx-auto">Click the button below whenever you want to send a burst of warmth and appreciation!</p>
+            
+            <div class="text-4xl font-extrabold text-rose-600 mb-6 font-handwriting">
+                <span id="hug-counter">148</span> hugs sent & counted! 💕
+            </div>
+
+            <button onclick="sendHug()" class="bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white font-bold px-8 py-4 rounded-full shadow-xl shadow-rose-500/30 transition transform hover:scale-105 active:scale-95 text-lg inline-flex items-center gap-3">
+                <i class="fa-solid fa-heart text-white animate-bounce"></i> Send Instant Hug
+            </button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="relative z-10 text-center py-12 px-4 text-slate-500 text-sm border-t border-rose-100/50 mt-12 bg-white/40 backdrop-blur-md">
+        <div class="max-w-md mx-auto">
+            <p class="font-semibold text-slate-700 mb-2">Created with all the warmth in the world ✨</p>
+            <p class="text-xs text-slate-400">"Lucky to have a friend like u" — forever & always.</p>
+        </div>
+    </footer>
+
+    <!-- Secret Note Modal -->
+    <div id="secret-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="glass-card max-w-lg w-full p-8 rounded-3xl shadow-2xl relative transform scale-95 transition-transform duration-300 bg-white border border-rose-200" id="modal-content">
+            <button onclick="closeSecretModal()" class="absolute top-4 right-4 w-10 h-10 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center hover:bg-rose-200 transition">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <div class="text-center mb-6">
+                <div class="w-12 h-12 bg-rose-500 text-white rounded-full flex items-center justify-center text-xl mx-auto mb-3 shadow-md">
+                    <i class="fa-solid fa-heart"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-slate-800">A Secret Note For You</h3>
+                <span class="text-xs text-rose-500 font-semibold tracking-wider uppercase">Confidential & 100% True</span>
+            </div>
+
+            <div class="bg-rose-50/70 p-6 rounded-2xl border border-rose-100 mb-6">
+                <p class="font-handwriting text-3xl text-slate-700 leading-relaxed text-center">
+                    "Dear best friend, if you ever doubt how much you mean to this world, just read this page. You bring so much joy, kindness, and light to everyone around you, especially me. Never change!"
+                </p>
+            </div>
+
+            <div class="text-center">
+                <button onclick="closeSecretModal()" class="bg-rose-500 hover:bg-rose-600 text-white font-semibold px-6 py-2.5 rounded-full shadow transition">
+                    Keep in My Heart ❤️
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // Flip card function for memory reasons
+        function flipCard(card) {
+            const back = card.querySelector('.card-back');
+            const isFlipped = back.style.opacity === '1';
+            
+            if (isFlipped) {
+                back.style.opacity = '0';
+                back.style.pointerEvents = 'none';
+            } else {
+                back.style.opacity = '1';
+                back.style.pointerEvents = 'auto';
+            }
+        }
+
+        // Random Notes Generator Array
+        const luckyNotes = [
+            "\"Having a friend like you is like finding a four-leaf clover in a field of ordinary grass.\"",
+            "\"You are the plot twist in my life that made everything so much more wonderful.\"",
+            "\"Distance or busy schedules change nothing; you're always in my corner and I in yours.\"",
+            "\"Thank you for listening to my endless rants and always knowing how to make me smile.\"",
+            "\"If awesome was a sport, you'd easily hold the world championship title.\""
+        ];
+
+        function generateRandomNote() {
+            const textEl = document.getElementById('lucky-note-text');
+            // Add slight fade effect
+            textEl.style.opacity = '0';
+            setTimeout(() => {
+                const randomIndex = Math.floor(Math.random() * luckyNotes.length);
+                textEl.innerText = luckyNotes[randomIndex];
+                textEl.style.opacity = '1';
+            }, 200);
+        }
+
+        // Hug Counter Logic
+        let hugCount = 148;
+        function sendHug() {
+            hugCount++;
+            document.getElementById('hug-counter').innerText = hugCount;
+            
+            // Create floating heart effect on screen
+            createFloatingHeart();
+        }
+
+        function createFloatingHeart() {
+            const heart = document.createElement('div');
+            heart.innerHTML = '<i class="fa-solid fa-heart text-rose-500 text-2xl"></i>';
+            heart.style.position = 'fixed';
+            heart.style.left = (window.innerWidth / 2 + (Math.random() * 100 - 50)) + 'px';
+            heart.style.bottom = '100px';
+            heart.style.zIndex = '9999';
+            heart.style.transition = 'all 1.5s ease-out';
+            heart.style.pointerEvents = 'none';
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.style.transform = 'translateY(-180px) scale(1.5)';
+                heart.style.opacity = '0';
+            }, 50);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 1600);
+        }
+
+        // Secret Modal Handlers
+        function openSecretModal() {
+            const modal = document.getElementById('secret-modal');
+            const content = document.getElementById('modal-content');
+            modal.style.opacity = '1';
+            modal.style.pointerEvents = 'auto';
+            content.style.transform = 'scale(1)';
+        }
+
+        function closeSecretModal() {
+            const modal = document.getElementById('secret-modal');
+            const content = document.getElementById('modal-content');
+            modal.style.opacity = '0';
+            modal.style.pointerEvents = 'none';
+            content.style.transform = 'scale(0.95)';
+        }
+
+        // Ambiance Vibe Player Toggle simulation
+        let isPlaying = false;
+        function toggleAmbiance() {
+            isPlaying = !isPlaying;
+            const icon = document.getElementById('music-icon');
+            const text = document.getElementById('music-text');
+            const toggleBtn = document.getElementById('music-toggle');
+
+            if (isPlaying) {
+                icon.className = 'fa-solid fa-pause';
+                text.innerText = 'Vibe Playing ✨';
+                toggleBtn.classList.add('animate-spin');
+                // Trigger celebratory subtle burst
+                createFloatingHeart();
+            } else {
+                icon.className = 'fa-solid fa-music';
+                text.innerText = 'Cozy Vibe';
+                toggleBtn.classList.remove('animate-spin');
+            }
+        }
+    </script>
+</body>
+</html>
